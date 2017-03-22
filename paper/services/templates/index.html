@@ -1,1 +1,8 @@
-<h1>Hello, World!</h1>
+<h1>Reddit</h1>
+<ul>
+	{% for story in stories %}
+		<li><a href="http://{{ story.url }}" target="_blank">{{ story.title }}</a></li>
+		<p>Date: {{ story.timestamp }}</p>
+		<p>Comments: {{ story.comments }}</p>
+	{% endfor %}
+</ul>
