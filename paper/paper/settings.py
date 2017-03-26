@@ -123,5 +123,6 @@ STATIC_URL = '/static/'
 
 
 CRON_CLASSES = [
-    "services.cron.ScrapeData",
+    "services.cron.RedditCron",
+    "services.cron.InshortsCron"
 ]

@@ -8,3 +8,4 @@ class StoryAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Story, StoryAdmin)
+admin.site.register(Service)

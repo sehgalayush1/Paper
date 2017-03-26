@@ -1,4 +1,5 @@
 import logging, json, requests
+from bs4 import BeautifulSoup
 
 class AbstractBaseClient(object):
 	def __init__(self):
@@ -22,6 +23,30 @@ class RedditClient(AbstractBaseClient):
 				result = r.json()
 				stories.extend(result['data']['children'])
 				count += 25
+
+		except ValueError, e:
+			logging.error(e)
+			logging.error(r)
+
+		print "Stories scrapped!"
+		return stories
+
+
+
+class InshortsClient(AbstractBaseClient):
+	def get_front_page_stories(self):
+		r = None
+		stories = list()
+
+		try:
+			r = requests.get('https://www.inshorts.com/en/read', headers=self.headers)
+			soup = BeautifulSoup(r.text, 'html.parser')
+
+			for story in soup.find_all('div', attrs={'class': 'news-card'}):
+				title = story.find(itemprop="headline").string
+				body = story.find(itemprop="articleBody").string
+				result = {'title': title, 'body': body}
+				stories.append(result)
 
 		except ValueError, e:
 			logging.error(e)

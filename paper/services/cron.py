@@ -1,17 +1,28 @@
 from django_cron import CronJobBase, Schedule
 
-from twisted.internet import task, reactor
-
 from . import crawlers
 
-class ScrapeData(CronJobBase):
+class RedditCron(CronJobBase):
 	RUN_EVERY_MINS = 5
 
 	schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
-	code = 'services.scrape_data'
+	code = 'services.redditcron'
 
 	def do(self):
 		reddit = crawlers.RedditCrawler()
 		print "Crawling..."
 		reddit.update_top_stories()
+		print "Success!!!"
+
+
+class InshortsCron(CronJobBase):
+	RUN_EVERY_MINS = 1
+
+	schedule = Schedule(run_every_mins=0)
+	code = 'services.inshortscron'
+
+	def do(self):
+		inshorts = crawlers.InshortsCrawler()
+		print "Crawling..."
+		inshorts.update_top_stories()
 		print "Success!!!"

@@ -25,3 +25,25 @@ class RedditCrawler():
 			logging.error(e)
 
 		print "Stories saved!"
+
+
+
+class InshortsCrawler():
+	def update_top_stories(self):
+		client = wrappers.InshortsClient()
+		try:
+			stories = client.get_front_page_stories()
+
+			for data in stories:
+				story, created = Story.objects.get_or_create(title=data['title'])
+
+				if created:
+					story.body = data['body']
+					service = Service.objects.get(name='Inshorts')
+					story.service = service
+					story.save()	
+
+		except Exception, e:
+			logging.error(e)
+
+		print "Stories saved!"

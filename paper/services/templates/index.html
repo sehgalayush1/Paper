@@ -1,8 +1,31 @@
-<h1>Reddit</h1>
-<ul>
-	{% for story in stories %}
-		<li><a href="http://{{ story.url }}" target="_blank">{{ story.title }}</a></li>
-		<p>Date: {{ story.timestamp }}</p>
-		<p>Comments: {{ story.comments }}</p>
-	{% endfor %}
-</ul>
+{% extends 'base.html' %}
+
+{% block content %}
+
+	{% load static %}
+
+	<div class="container">
+		<h1>Paper</h1>
+		<div class="row">
+	        <div class="col s3">
+	          	<a href="{% url 'reddit' %}">
+		          	<div class="card">
+			            <div class="card-image">
+			              	<img src="{% static 'img/reddit.png' %}" style="height: 200px; width: 200px; padding: 10px;">
+			            </div>
+		          	</div>
+	          	</a>
+	        </div>
+	        <div class="col s3">
+	          	<a href="{% url 'inshorts' %}">
+		          	<div class="card">
+			            <div class="card-image">
+			              	<img src="{% static 'img/inshorts.png' %}" style="height: 200px; width: 200px; padding: 10px;">
+			            </div>
+		          	</div>
+	          	</a>
+	        </div>
+	    </div>
+    </div>
+
+{% endblock %}
